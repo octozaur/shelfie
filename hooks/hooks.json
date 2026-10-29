@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {"hooks": [{"type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/bin/shelfie\" hook session_start", "timeout": 10}]}
+    ],
+    "UserPromptSubmit": [
+      {"hooks": [{"type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/bin/shelfie\" hook prompt_submit", "timeout": 10}]}
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Artifact|Bash|Write|Edit|MultiEdit|mcp__Claude_Browser__preview_start",
+        "hooks": [{"type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/bin/shelfie\" hook post_tool", "timeout": 10}]
+      }
+    ],
+    "Stop": [
+      {"hooks": [{"type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/bin/shelfie\" hook stop", "timeout": 30}]}
+    ]
+  }
+}

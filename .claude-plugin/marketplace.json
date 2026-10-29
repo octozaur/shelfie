@@ -1,0 +1,16 @@
+{
+  "name": "shelfie",
+  "owner": {
+    "name": "octozaur"
+  },
+  "metadata": {
+    "description": "Shelfie \u2014 automatic artifact log for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "shelfie",
+      "source": "./",
+      "description": "Automatic artifact log for Claude Code \u2014 every file, page and server Claude makes, with dates, descriptions and change history."
+    }
+  ]
+}

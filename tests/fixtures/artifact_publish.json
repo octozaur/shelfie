@@ -1,0 +1,8 @@
+{
+  "session_id": "sess-1",
+  "cwd": "/tmp/x",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Artifact",
+  "tool_input": {"file_path": "brief.html", "icon": "chart", "description": "Client brief"},
+  "tool_response": [{"type": "text", "text": "Published. URL: https://claude.ai/code/artifact/ab12-cd34 (private). Watching for comments."}]
+}

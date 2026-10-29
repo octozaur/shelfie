@@ -1,0 +1,17 @@
+{
+  "name": "shelfie",
+  "version": "0.1.0",
+  "description": "Automatic artifact log for Claude Code — every file, page and server Claude makes in a project, with dates, descriptions and change history, on one page.",
+  "author": {
+    "name": "Vlad F."
+  },
+  "license": "MIT",
+  "keywords": [
+    "artifacts",
+    "log",
+    "history",
+    "dashboard"
+  ],
+  "homepage": "https://github.com/octozaur/shelfie",
+  "repository": "https://github.com/octozaur/shelfie"
+}

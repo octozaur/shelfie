@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artifacts</title>
+<style>
+  :root{
+    --bg:#f7f6f3; --panel:#ffffff; --ink:#1b1b1a; --ink-2:#5c5b57; --ink-3:#9a988f;
+    --line:#e7e5df; --accent:#2f5bea;
+    --h0:#ecebe6; --h1:#c9d5fb; --h2:#8fa8f5; --h3:#4f76ee; --h4:#2447c4;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    /* type colors */
+    --t-art:#d97757; --t-pdf:#e5484d; --t-html:#f76b15; --t-md:#6e6d68; --t-doc:#3e63dd;
+    --t-slides:#e2a336; --t-sheet:#30a46c; --t-srv:#8e4ec6; --t-img:#12a594;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#121212; --panel:#1a1a19; --ink:#efeee9; --ink-2:#a8a69f; --ink-3:#6f6d67;
+      --line:#2a2a28; --accent:#7d9bff;
+      --h0:#222220; --h1:#1f2b52; --h2:#2c4290; --h3:#4366d6; --h4:#7d9bff;
+      --t-md:#a8a69f;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+  .eyebrow{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+  h1{font-size:30px;font-weight:650;letter-spacing:-.02em;margin:0}
+  .stats{display:flex;gap:22px;font-size:12px;color:var(--ink-2)}
+  .stats b{display:block;font:600 18px/1.2 var(--sans);color:var(--ink)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px}
+  .heat{padding:18px 20px 14px;margin-bottom:18px}
+  .heat-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:12px;color:var(--ink-2)}
+  .months{display:grid;grid-template-columns:repeat(26,1fr);gap:4px;font:10px var(--mono);color:var(--ink-3);margin-bottom:5px}
+  .grid{display:grid;grid-template-columns:repeat(26,1fr);grid-template-rows:repeat(7,1fr);grid-auto-flow:column;gap:4px}
+  .grid i{aspect-ratio:1;border-radius:3px;background:var(--h0);cursor:pointer;transition:transform .12s}
+  .grid i:hover{transform:scale(1.35)}
+  .grid i.l1{background:var(--h1)} .grid i.l2{background:var(--h2)} .grid i.l3{background:var(--h3)} .grid i.l4{background:var(--h4)}
+  .grid i.sel{outline:2px solid var(--ink);outline-offset:1px}
+  .legend{display:flex;align-items:center;gap:4px;font:10px var(--mono);color:var(--ink-3)}
+  .legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+
+  .bar{position:sticky;top:0;z-index:2;background:var(--bg);padding:10px 0 12px;margin-bottom:18px}
+  .search{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 12px;color:var(--ink-3);margin-bottom:10px}
+  .search span{font:11px var(--mono);border:1px solid var(--line);border-radius:5px;padding:1px 5px;margin-left:auto}
+  .types{display:flex;flex-wrap:wrap;gap:6px}
+  .tchip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 5px;border:1px solid var(--line);border-radius:20px;background:var(--panel);font-size:12px;color:var(--ink-2);cursor:pointer}
+  .tchip.on{border-color:var(--ink);color:var(--ink)}
+  .tchip .ic{width:20px;height:20px;border-radius:6px}
+  .tchip .ic svg{width:12px;height:12px}
+  .tchip em{font:10px var(--mono);font-style:normal;color:var(--ink-3)}
+
+  /* type icon tile */
+  .ic{flex:none;display:grid;place-items:center;border-radius:10px;color:#fff;background:var(--c)}
+  .ic svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .ic.art{--c:var(--t-art)} .ic.pdf{--c:var(--t-pdf)} .ic.html{--c:var(--t-html)} .ic.md{--c:var(--t-md)}
+  .ic.doc{--c:var(--t-doc)} .ic.slides{--c:var(--t-slides)} .ic.sheet{--c:var(--t-sheet)} .ic.srv{--c:var(--t-srv)} .ic.img{--c:var(--t-img)}
+
+  .group{margin-bottom:26px}
+  .gh{display:flex;align-items:baseline;gap:10px;margin:0 0 6px}
+  .gh h2{font-size:13px;font-weight:600;margin:0}
+  .gh small{font:11px var(--mono);color:var(--ink-3)}
+  .gh::after{content:"";flex:1;border-bottom:1px solid var(--line);transform:translateY(-4px)}
+
+  .item{display:grid;grid-template-columns:44px 1fr auto;gap:14px;padding:12px 14px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:background .15s}
+  .item > div{min-width:0}
+  .item:hover{background:var(--panel)}
+  .item.open{background:var(--panel);border-color:var(--line)}
+  .item > .ic{width:44px;height:44px;position:relative}
+  .badge{position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);font:600 8.5px/1 var(--mono);letter-spacing:.04em;padding:2px 4px;border-radius:4px;background:var(--panel);color:var(--c);border:1px solid var(--line);white-space:nowrap}
+  .title{font-weight:600;font-size:15px;letter-spacing:-.01em}
+  .desc{color:var(--ink-2);margin-top:1px}
+  .where{margin-top:6px;font:11px var(--mono);color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;font:11px var(--mono);color:var(--ink-3);white-space:nowrap}
+  .chip{border:1px solid var(--line);border-radius:20px;padding:2px 8px}
+
+  .changes{grid-column:2 / 4;margin-top:4px;padding-top:12px;border-top:1px dashed var(--line)}
+  .changes .row{display:grid;grid-template-columns:110px 1fr;gap:12px;position:relative;padding:0 0 12px 16px}
+  .changes .row::before{content:"";position:absolute;left:3px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--t-art)}
+  .changes .row::after{content:"";position:absolute;left:6px;top:16px;bottom:-2px;width:1px;background:var(--line)}
+  .changes .row:last-of-type::after{display:none}
+  .changes .when{font:11px var(--mono);color:var(--ink-3);padding-top:1px}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;padding-left:16px}
+  .btn{font:12px var(--sans);padding:6px 11px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+  .btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .note{max-width:880px;margin:0 auto;padding:0 24px;color:var(--ink-3);font-size:12px}
+
+  @media (max-width:640px){
+    .wrap{padding:28px 16px 60px}
+    header{flex-direction:column;align-items:flex-start}
+    .item{grid-template-columns:40px 1fr;gap:12px;padding:12px 10px}
+    .item > .ic{width:40px;height:40px}
+    .right{grid-column:2;flex-direction:row;align-items:center}
+    .changes{grid-column:1 / 3}
+    .changes .row{grid-template-columns:1fr;gap:0}
+  }
+</style>
+</head>
+<body>
+<!-- icon sprites -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-art" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></symbol>
+  <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M8.5 16.5h7M8.5 13h4"/></symbol>
+  <symbol id="i-html" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></symbol>
+  <symbol id="i-md" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M6.5 15V9l2.5 3 2.5-3v6M16.5 9v6m-2-2 2 2 2-2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8.5 12h7M8.5 15h7M8.5 18h4"/></symbol>
+  <symbol id="i-slides" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16"/></symbol>
+  <symbol id="i-srv" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 10 3 2-3 2M12.5 14.5H17"/></symbol>
+  <symbol id="i-img" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-9 9"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">effortless-studio · artifact log</div>
+      <h1>Artifacts</h1>
+    </div>
+    <div class="stats">
+      <div><b>48</b>total</div>
+      <div><b>9</b>this month</div>
+      <div><b>3</b>today</div>
+    </div>
+  </header>
+
+  <section class="card heat">
+    <div class="heat-top"><span>Activity · last 6 months</span>
+      <span class="legend">less <i style="background:var(--h0)"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i> more</span></div>
+    <div class="months" id="months"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <div class="bar">
+    <div class="search">⌕ Search titles and descriptions…<span>/</span></div>
+    <div class="types">
+      <span class="tchip on">All <em>48</em></span>
+      <span class="tchip"><span class="ic art"><svg><use href="#i-art"/></svg></span>Claude artifact <em>17</em></span>
+      <span class="tchip"><span class="ic html"><svg><use href="#i-html"/></svg></span>HTML <em>11</em></span>
+      <span class="tchip"><span class="ic pdf"><svg><use href="#i-pdf"/></svg></span>PDF <em>6</em></span>
+      <span class="tchip"><span class="ic md"><svg><use href="#i-md"/></svg></span>Markdown <em>5</em></span>
+      <span class="tchip"><span class="ic doc"><svg><use href="#i-doc"/></svg></span>Doc <em>3</em></span>
+      <span class="tchip"><span class="ic slides"><svg><use href="#i-slides"/></svg></span>Slides <em>2</em></span>
+      <span class="tchip"><span class="ic sheet"><svg><use href="#i-sheet"/></svg></span>Sheet <em>2</em></span>
+      <span class="tchip"><span class="ic srv"><svg><use href="#i-srv"/></svg></span>Local server <em>1</em></span>
+      <span class="tchip"><span class="ic img"><svg><use href="#i-img"/></svg></span>Image <em>1</em></span>
+    </div>
+  </div>
+
+  <section class="group">
+    <div class="gh"><h2>Today</h2><small>Wed, Oct 29</small></div>
+
+    <div class="item open">
+      <span class="ic art"><svg><use href="#i-art"/></svg><span class="badge">ARTIFACT</span></span>
+      <div>
+        <div class="title">Northwind — onboarding agent brief</div>
+        <div class="desc">Agent design for the client's onboarding flow, with open questions and the deployment choice.</div>
+        <div class="where">claude.ai/artifact/DemoBrief…</div>
+      </div>
+      <div class="right"><span>14:10</span><span class="chip">3 changes</span></div>
+      <div class="changes">
+        <div class="row"><div class="when">Oct 29 · 14:10</div><div>Added the Fargate scheduled-task section and cost estimate</div></div>
+        <div class="row"><div class="when">Oct 29 · 12:35</div><div>Reworded Q7–Q9 after the client call</div></div>
+        <div class="row"><div class="when">Oct 29 · 11:02</div><div>Created</div></div>
+        <div class="actions"><button class="btn primary">Copy link</button><button class="btn">Open</button></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="ic srv"><svg><use href="#i-srv"/></svg><span class="badge">SERVER</span></span>
+      <div>
+        <div class="title">Logo motion lab</div>
+        <div class="desc">Interactive parameter lab for the animated logo, runs as a local dev server.</div>
+        <div class="where">localhost:5173 · npm run dev · logo-lab/</div>
+      </div>
+      <div class="right"><span>11:40</span><span class="chip">2 changes</span></div>
+    </div>
+
+    <div class="item">
+      <span class="ic html"><svg><use href="#i-html"/></svg><span class="badge">HTML</span></span>
+      <div>
+        <div class="title">Q4 capacity snapshot</div>
+        <div class="desc">Bench and allocation table for the leadership sync, by team.</div>
+        <div class="where">reports/q4-capacity.html</div>
+      </div>
+      <div class="right"><span>09:24</span><span class="chip">1 change</span></div>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="gh"><h2>This week</h2><small>Oct 27 – 28</small></div>
+    <div class="item">
+      <span class="ic pdf"><svg><use href="#i-pdf"/></svg><span class="badge">PDF</span></span>
+      <div>
+        <div class="title">Lisbon walking guide</div>
+        <div class="desc">31 places plus food and logistics sections, print-ready.</div>
+        <div class="where">lisbon-guide.pdf</div>
+      </div>
+      <div class="right"><span>Mon</span><span class="chip">4 changes</span></div>
+    </div>
+    <div class="item">
+      <span class="ic slides"><svg><use href="#i-slides"/></svg><span class="badge">PPTX</span></span>
+      <div>
+        <div class="title">Pitch deck — location privacy</div>
+        <div class="desc">12-slide deck explaining the privacy concept for an RFP.</div>
+        <div class="where">pitch/privacy.pptx</div>
+      </div>
+      <div class="right"><span>Mon</span><span class="chip">1 change</span></div>
+    </div>
+    <div class="item">
+      <span class="ic md"><svg><use href="#i-md"/></svg><span class="badge">MD</span></span>
+      <div>
+        <div class="title">H1 spending analysis</div>
+        <div class="desc">Monthly deficit breakdown with travel as the main driver.</div>
+        <div class="where">money/analysis-2026-H1.md</div>
+      </div>
+      <div class="right"><span>Mon</span><span class="chip">3 changes</span></div>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="gh"><h2>September</h2><small>14 artifacts</small></div>
+    <div class="item">
+      <span class="ic sheet"><svg><use href="#i-sheet"/></svg><span class="badge">XLSX</span></span>
+      <div>
+        <div class="title">Tool subscriptions</div>
+        <div class="desc">Seats, owners and monthly cost per team.</div>
+        <div class="where">subscriptions.xlsx</div>
+      </div>
+      <div class="right"><span>Sep 18</span><span class="chip">5 changes</span></div>
+    </div>
+    <div class="item">
+      <span class="ic art"><svg><use href="#i-art"/></svg><span class="badge">ARTIFACT</span></span>
+      <div>
+        <div class="title">Workshop playbook</div>
+        <div class="desc">36 ideas, formats, rules and prizes for the offsite.</div>
+        <div class="where">claude.ai/artifact/Hk3…</div>
+      </div>
+      <div class="right"><span>Sep 12</span><span class="chip">2 changes</span></div>
+    </div>
+  </section>
+</div>
+<p class="note">Mockup — content is illustrative.</p>
+
+<script>
+  let s = 7; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  const grid = document.getElementById('grid');
+  for (let i = 0; i < 26 * 7; i++) {
+    const el = document.createElement('i'); const r = rnd() + (i > 150 ? .25 : 0);
+    const lv = r > .93 ? 4 : r > .82 ? 3 : r > .68 ? 2 : r > .52 ? 1 : 0;
+    if (lv) el.className = 'l' + lv;
+    if (i === 26 * 7 - 5) el.classList.add('sel');
+    el.onclick = () => { grid.querySelectorAll('.sel').forEach(x => x.classList.remove('sel')); el.classList.add('sel'); };
+    grid.appendChild(el);
+  }
+  const m = document.getElementById('months');
+  const labels = {0:'May',4:'Jun',9:'Jul',13:'Aug',17:'Sep',22:'Oct'};
+  for (let w = 0; w < 26; w++) { const d = document.createElement('div'); d.textContent = labels[w] || ''; m.appendChild(d); }
+</script>
+</body>
+</html>
