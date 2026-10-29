@@ -1,0 +1,31 @@
+name: Bug report
+description: Something Shelfie captured wrong, missed, or broke
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What did you expect, and what did Shelfie do instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce
+      placeholder: |
+        1. Asked Claude to …
+        2. At the end of the reply …
+  - type: textarea
+    id: errors
+    attributes:
+      label: .shelfie/errors.log
+      description: Paste it if the file exists (check it for anything private first).
+      render: text
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: macOS 15, Claude Code 2.1.x (CLI or desktop app), Python 3.12
+    validations:
+      required: true

@@ -347,7 +347,10 @@
     var d = e._updated;
     if (d >= today) return ["Today", WD[d.getDay()] + ", " + short(d)];
     if (d >= yesterday) return ["Yesterday", WD[d.getDay()] + ", " + short(d)];
-    if (d >= weekStart) return ["This week", short(weekStart) + " – " + short(yesterday)];
+    if (d >= weekStart) {
+      var last = new Date(yesterday); last.setDate(last.getDate() - 1);
+      return ["This week", short(weekStart) === short(last) ? short(last) : short(weekStart) + " – " + short(last)];
+    }
     var name = MONTHS[d.getMonth()] + (d.getFullYear() !== now.getFullYear() ? " " + d.getFullYear() : "");
     return [name, null];
   }

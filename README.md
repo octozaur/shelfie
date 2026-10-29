@@ -1,8 +1,25 @@
-# Shelfie
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.png">
+    <img alt="Shelfie — every artifact Claude makes, on one shelf" src="docs/assets/banner-light.png" width="100%">
+  </picture>
+</p>
+
+<p align="center">
+  <a href="https://github.com/octozaur/shelfie/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/octozaur/shelfie/actions/workflows/tests.yml/badge.svg"></a>
+  <a href="https://github.com/octozaur/shelfie/releases"><img alt="Release" src="https://img.shields.io/github/v/release/octozaur/shelfie?color=2f5bea"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/octozaur/shelfie?color=30a46c"></a>
+  <img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&amp;logoColor=white">
+  <img alt="Zero dependencies" src="https://img.shields.io/badge/dependencies-zero-30a46c">
+  <a href="https://code.claude.com/docs/en/plugins"><img alt="Claude Code plugin" src="https://img.shields.io/badge/Claude%20Code-plugin-d97757?logo=claude&amp;logoColor=white"></a>
+</p>
 
 **Automatic artifact log for Claude Code.** Every file, page and server Claude makes in a project — with dates, short descriptions and change history — on one page you can open from Finder.
 
-![Shelfie dashboard](docs/screenshot.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/screenshot-dark.png">
+  <img alt="Shelfie dashboard: activity map, type filters and a timeline of a project's artifacts" src="docs/assets/screenshot-light.png">
+</picture>
 
 You ask Claude for a dashboard, a PDF guide, a pitch deck, a prototype on `localhost`. A week later you're scrolling a chat to find it. Shelfie keeps the shelf for you:
 
@@ -11,6 +28,9 @@ You ask Claude for a dashboard, a PDF guide, a pitch deck, a prototype on `local
 - **Change history.** One line per session: *"Added the FAQ section"*, *"Week 3 results"*.
 - **Find it by date.** A GitHub-style activity map, a timeline grouped by day / week / month, search, and type filters with icons.
 - **Local and private.** Everything lives in your project's `.shelfie/` folder. The dashboard is a single static HTML file — no server, no network requests.
+
+> [!NOTE]
+> Shelfie never uploads anything. It only reads what Claude Code's hooks tell it and the files in your project, and writes to `.shelfie/`.
 
 ## Install
 
@@ -76,16 +96,19 @@ Files in `.shelfie/`:
 - `shelfie.html` — the dashboard (regenerated; safe to delete)
 - `bin/shelfie` — project launcher, refreshed every session
 
-Whether to commit `.shelfie/` is up to you: add it to `.gitignore` to keep the log personal, or commit `registry.json` to share it with the team.
+> [!TIP]
+> Whether to commit `.shelfie/` is up to you: add it to `.gitignore` to keep the log personal, or commit `registry.json` to share it with the team.
 
 ## Development
 
 ```bash
 python3 -m unittest discover -s tests -t .
-python3 tests/fixtures/make_demo.py /tmp/shelfie-demo   # demo dashboard
+python3 tests/fixtures/make_demo.py /tmp/nimbus         # demo dashboard (the one in the screenshot)
 claude --plugin-dir /path/to/shelfie                    # try it in any project
 ```
 
+Changes are listed in [CHANGELOG.md](CHANGELOG.md). Bug reports and ideas are welcome in [issues](https://github.com/octozaur/shelfie/issues).
+
 ## License
 
-MIT
+[MIT](LICENSE)

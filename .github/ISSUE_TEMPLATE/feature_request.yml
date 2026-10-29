@@ -1,0 +1,15 @@
+name: Feature request
+description: An idea that would make Shelfie more useful
+labels: [enhancement]
+body:
+  - type: textarea
+    id: moment
+    attributes:
+      label: The moment you wished for it
+      description: What were you trying to find or do?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help
