@@ -36,4 +36,4 @@ Ask the user:
 1. Which formats to track — Claude artifact, HTML, PDF, Markdown, Doc, Slides, Sheet, Local server, Image. Default: all.
 2. Whether Shelfie may record its notes without permission prompts — this adds one allow rule for `.shelfie/bin/shelfie` to `.claude/settings.local.json` (personal, not committed).
 
-Then run `"${CLAUDE_PLUGIN_ROOT}/bin/shelfie" setup --formats all|<keys> --allow-permission yes|no` (if `CLAUDE_PLUGIN_ROOT` is not set in your shell, use the path from the Shelfie setup note in your context, or the existing `.shelfie/bin/shelfie setup …`).
+Then run `"${CLAUDE_PLUGIN_ROOT}/scripts/shelfie" setup --formats all|<keys> --allow-permission yes|no` (if `CLAUDE_PLUGIN_ROOT` is not set in your shell, use the path from the Shelfie setup note in your context, or the existing `.shelfie/bin/shelfie setup …`).

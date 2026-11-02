@@ -2,6 +2,12 @@
 
 All notable changes to Shelfie are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [0.1.1] — 2026-11-02
+
+### Fixed
+- The CLI entry point moved from `bin/shelfie` to `scripts/shelfie`. claude.ai rejects plugins with a top-level `bin/` directory, so 0.1.0 could not be added to an organization's plugin catalog there. Hooks, the setup instructions and the project launcher now point to the new path. Nothing changes inside a project: `.shelfie/bin/shelfie` and its permission rule stay where they were, and an existing launcher is updated at the next session start.
+- A layout test now fails if `bin/` comes back or a hook points at a file that does not exist.
+
 ## [0.1.0] — 2026-10-30
 
 First public release.
@@ -15,4 +21,5 @@ First public release.
 - `/shelfie` skill: open the dashboard, change tracked formats, see and restore ignored items.
 - First-run setup with an optional, narrowly scoped permission rule for Shelfie's own `note` command.
 
+[0.1.1]: https://github.com/octozaur/shelfie/releases/tag/v0.1.1
 [0.1.0]: https://github.com/octozaur/shelfie/releases/tag/v0.1.0

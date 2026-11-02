@@ -10,7 +10,7 @@ from shelfie import store
 from tests.helpers import TempProject
 
 REPO = Path(__file__).resolve().parents[1]
-BIN = REPO / "bin" / "shelfie"
+BIN = REPO / "scripts" / "shelfie"
 FIX = Path(__file__).parent / "fixtures"
 
 

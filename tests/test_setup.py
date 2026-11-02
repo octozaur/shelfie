@@ -15,7 +15,7 @@ class SetupTest(unittest.TestCase):
             self.assertEqual(store.load_config(root)["formats"], ["html", "pdf"])
             launcher = root / ".shelfie" / "bin" / "shelfie"
             text = launcher.read_text()
-            self.assertIn(f"'{PLUGIN}/bin/shelfie'", text)
+            self.assertIn(f"'{PLUGIN}/scripts/shelfie'", text)
             self.assertIn(f"CLAUDE_PROJECT_DIR={root}", text)
             self.assertTrue(os.access(launcher, os.X_OK))
             self.assertTrue((root / ".shelfie" / "shelfie.html").exists())
@@ -78,7 +78,7 @@ class SetupTest(unittest.TestCase):
 
     def test_setup_context_mentions_command(self):
         text = setup.setup_context(PLUGIN)
-        self.assertIn(f'"{PLUGIN}/bin/shelfie" setup --formats', text)
+        self.assertIn(f'"{PLUGIN}/scripts/shelfie" setup --formats', text)
         self.assertIn("settings.local.json", text)
 
 
